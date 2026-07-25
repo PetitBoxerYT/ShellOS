@@ -19,3 +19,14 @@ ShellOS requires a Linux system (Debian/Ubuntu recommended).
 
 ```bash
 sudo bash install.sh
+```
+Once installed:
+
+```bash
+shellos
+```
+To enable automatic startup:To enable automatic startup:
+
+```bash
+sudo systemctl enable shellos
+```
