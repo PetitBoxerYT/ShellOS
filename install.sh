@@ -1,60 +1,60 @@
 #!/bin/bash
 
-echo "========================================"
-echo "      Installation de ShellOS"
-echo "========================================"
+echo "==============================================="
+echo "        Installation de ShellOS"
+echo "==============================================="
 
-# Vérification des droits
-if [ "$EUID" -ne 0 ]; then
-    echo "Veuillez lancer ce script avec sudo."
-    exit 1
-fi
-
+# 1. Mise à jour du système
 echo "[1/6] Mise à jour du système..."
-apt update && apt upgrade -y
+sudo apt update && sudo apt upgrade -y
 
+# 2. Installation des dépendances système
 echo "[2/6] Installation des dépendances système..."
-apt install -y python3 python3-pip python3-venv \
-               mpv libmpv-dev \
-               libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev \
-               git curl wget
+sudo apt install -y python3 python3-pip mpv git
 
+# 3. Installation des dépendances Python
 echo "[3/6] Installation des dépendances Python..."
-pip3 install pygame requests tmdbsimple
+pip3 install pygame
 
-echo "[4/6] Copie de ShellOS dans /opt/shellos..."
-mkdir -p /opt/shellos
-sudo cp -r bootshell core modes user assets /opt/shellos/
+# 4. Création du dossier /opt/shellos
+echo "[4/6] Copie des fichiers ShellOS dans /opt/shellos..."
+sudo rm -rf /opt/shellos
+sudo mkdir -p /opt/shellos
 
-echo "[5/6] Création du lanceur global /usr/bin/shellos..."
-cat <<EOF > /usr/bin/shellos
-#!/bin/bash
-python3 /opt/shellos/core/system/init/init.sh
-EOF
+# Copie des dossiers du projet
+sudo cp -r bootshell /opt/shellos/
+sudo cp -r core /opt/shellos/
+sudo cp -r modes /opt/shellos/
+sudo cp -r user /opt/shellos/
+sudo cp -r assets /opt/shellos/
 
-chmod +x /usr/bin/shellos
+# 5. Création de la commande shellos
+echo "[5/6] Création de la commande 'shellos'..."
+sudo bash -c 'echo "#!/bin/bash" > /usr/bin/shellos'
+sudo bash -c 'echo "python3 /opt/shellos/bootshell/main.py" >> /usr/bin/shellos'
+sudo chmod +x /usr/bin/shellos
 
+# 6. (Optionnel) Création du service systemd
 echo "[6/6] (Optionnel) Création du service systemd ShellOS..."
-cat <<EOF > /etc/systemd/system/shellos.service
+sudo bash -c 'cat > /etc/systemd/system/shellos.service <<EOF
 [Unit]
-Description=ShellOS Interface
+Description=ShellOS BootShell
 After=network.target
 
 [Service]
 ExecStart=/usr/bin/shellos
 Restart=always
-User=root
- 
+
 [Install]
 WantedBy=multi-user.target
-EOF
+EOF'
 
 echo "Pour activer le démarrage automatique :"
-echo "    sudo systemctl enable shellos"
+echo "  sudo systemctl enable shellos"
 echo "Pour démarrer ShellOS maintenant :"
-echo "    sudo systemctl start shellos"
+echo "  sudo systemctl start shellos"
 
-echo "========================================"
+echo "==============================================="
 echo "Installation terminée !"
 echo "Lancez ShellOS avec la commande : shellos"
-echo "========================================"
+echo "==============================================="
