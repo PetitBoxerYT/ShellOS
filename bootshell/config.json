@@ -1,0 +1,8 @@
+{
+  "default_mode": "cinemashell",
+  "timeout_seconds": 10,
+  "show_dev_mode": true,
+  "show_settings_mode": true,
+  "theme": "dark-blue",
+  "animations": true
+}

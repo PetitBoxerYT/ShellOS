@@ -1,0 +1,16 @@
+#!/usr/bin/env python3
+
+import pygame
+from ui.main import CinemaShellUI
+from logic.state_manager import StateManager
+
+def main():
+    pygame.init()
+
+    state = StateManager()
+    ui = CinemaShellUI(state)
+
+    ui.run()
+
+if __name__ == "__main__":
+    main()

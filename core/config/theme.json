@@ -1,0 +1,10 @@
+{
+  "colors": {
+    "background": "#000000",
+    "accent": "#1E6FFF",
+    "text": "#DDE6FF",
+    "halo": "#1E6FFF"
+  },
+  "icons": "ios_samsung_mix",
+  "animations": true
+}

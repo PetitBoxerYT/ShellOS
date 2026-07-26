@@ -1,0 +1,10 @@
+{
+  "services": [
+    "themesvc",
+    "inputs",
+    "filesvc",
+    "netsvc",
+    "metasvc",
+    "mediasvc"
+  ]
+}
