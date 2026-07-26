@@ -24,7 +24,7 @@ pip3 install pygame requests tmdbsimple
 
 echo "[4/6] Copie de ShellOS dans /opt/shellos..."
 mkdir -p /opt/shellos
-cp -r ShellOS/* /opt/shellos/
+sudo cp -r bootshell core modes user assets /opt/shellos/
 
 echo "[5/6] Création du lanceur global /usr/bin/shellos..."
 cat <<EOF > /usr/bin/shellos
