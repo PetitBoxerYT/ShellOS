@@ -16,12 +16,11 @@ sudo apt install -y python3 python3-pip mpv git
 echo "[3/6] Installation des dépendances Python..."
 pip3 install pygame
 
-# 4. Création du dossier /opt/shellos
+# 4. Copie des fichiers ShellOS dans /opt/shellos
 echo "[4/6] Copie des fichiers ShellOS dans /opt/shellos..."
 sudo rm -rf /opt/shellos
 sudo mkdir -p /opt/shellos
 
-# Copie des dossiers du projet
 sudo cp -r bootshell /opt/shellos/
 sudo cp -r core /opt/shellos/
 sudo cp -r modes /opt/shellos/
@@ -31,8 +30,9 @@ sudo cp -r assets /opt/shellos/
 # 5. Création de la commande shellos
 echo "[5/6] Création de la commande 'shellos'..."
 sudo bash -c 'echo "#!/bin/bash" > /usr/bin/shellos'
-sudo bash -c 'echo "python3 /opt/shellos/bootshell/main.py" >> /usr/bin/shellos'
+sudo bash -c 'echo "/opt/shellos/bootshell/bootshell.sh" >> /usr/bin/shellos'
 sudo chmod +x /usr/bin/shellos
+sudo chmod +x /opt/shellos/bootshell/bootshell.sh
 
 # 6. (Optionnel) Création du service systemd
 echo "[6/6] (Optionnel) Création du service systemd ShellOS..."
