@@ -2,4 +2,5 @@
 
 echo "[BootShell] Démarrage..."
 
-python3 /opt/shellos/bootshell/ui/mainmenu.py
+cd /opt/shellos/bootshell
+python3 ui/mainmenu.py
